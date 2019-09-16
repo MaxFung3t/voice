@@ -15,8 +15,8 @@
                 </ul>
             </div>
             <div class="city_sort">
-                <div>
-                    <h2>A</h2>
+                <div  v-for="item in cityListInfo">
+                    <h2>{{ item.index }}</h2>
                     <ul>
                         <li>阿拉善盟</li>
                         <li>鞍山</li>
@@ -24,51 +24,6 @@
                         <li>安阳</li>
                     </ul>
                 </div>
-                <div>
-                    <h2>B</h2>
-                    <ul>
-                        <li>北京</li>
-                        <li>保定</li>
-                        <li>蚌埠</li>
-                        <li>包头</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>A</h2>
-                    <ul>
-                        <li>阿拉善盟</li>
-                        <li>鞍山</li>
-                        <li>安庆</li>
-                        <li>安阳</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>B</h2>
-                    <ul>
-                        <li>北京</li>
-                        <li>保定</li>
-                        <li>蚌埠</li>
-                        <li>包头</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>A</h2>
-                    <ul>
-                        <li>阿拉善盟</li>
-                        <li>鞍山</li>
-                        <li>安庆</li>
-                        <li>安阳</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>B</h2>
-                    <ul>
-                        <li>北京</li>
-                        <li>保定</li>
-                        <li>蚌埠</li>
-                        <li>包头</li>
-                    </ul>
-                </div>	
             </div>
         </div>
         <div class="city_index">
@@ -85,20 +40,64 @@
 
 <script>
 export default {
-  name: 'City',
-  components: {},
-  props: {},
-  data() {
-    return {
-    };
-  },
-  watch: {},
-  computed: {},
-  methods: {},
-  created() {},
-  mounted() {}
-};
+    name: 'City',
+    components: {},
+    props: {},
+    data() {
+        return {
+            cityListInfo:[]
+        };
+    },
+    mounted() {
+        this.axios.get('/api/cityList').then((res) =>{
+            var msg = res.data.msg;
+            if(msg === 'ok'){
+                var cities = res.data.data.cities;
+                console.log(cities)
+                this.cityListInfo = this.formCityList(cities);
+            }
+        })
+    },
+    methods: {
+        formCityList(cities){
+            var cityList = [];
+            var hotList = [];
+            for(var i=0;i<cities.length-1;i++){
+                var firstLetter = cities[i].py.substr(0,1).toUpperCase();
+                if(toCom(firstLetter)){   //新增加城市
+                    cityList.push({ index: firstLetter, list: [{ nm: cities[i].nm, id: cities[i].id }] });
+                }else{
+                    for(var j=0;j<cityList.lenght;j++){
+                        if(cityList[i].index === firstLetter){
+                            cityList[i].list.push({ nm: cities[i].nm, id: cities[i].id });
+                        }
+                    }
+                }
+            }
+            cityList.sort((n1,n2) =>{
+                if(n1.index > n2.index){
+                    return 1;
+                }else if(n1.index < n2.index){
+                    return -1
+                }else{
+                    return 0;
+                }
+            })
+
+            function toCom(firstLetter){
+                for(var i=0;i<cityList.length;i++){
+                    if(cityList[i].index === firstLetter){
+                        return false;
+                    }
+                }
+                return true;
+            }
+            console.log(cityList)
+        }
+    }
+}
 </script>
+
 <style scoped>
 #content .city_body{ margin-top: 45px; display: flex; width:100%; position: absolute; top: 0; bottom: 0;}
 .city_body .city_list{ flex:1; overflow: auto; background: #FFF5F0;}
