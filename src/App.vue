@@ -1,33 +1,10 @@
 <template>
-    <div>
-        <this-header></this-header>
-        <div class="container">
-            <keep-alive>
-                <router-view></router-view>
-            </keep-alive>
-        </div>  
-        <this-TabBar></this-TabBar>
-    </div>
+    <keep-alive>
+        <router-view></router-view>
+    </keep-alive>
 </template>
 <script>
-import Header from './components/Header';
-import TabBar from './components/TabBar';
 export default {
-    name: 'index',
-    components: {
-        thisHeader: Header,
-        thisTabBar: TabBar
-    },
-  props: {},
-  data() {
-    return {
-    };
-  },
-  watch: {},
-  computed: {},
-  methods: {},
-  created() {},
-  mounted() {}
 };
 </script>
 <style>
