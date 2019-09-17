@@ -4,18 +4,11 @@
             <div class="city_hot">
                 <h2>热门城市</h2>
                 <ul class="clearfix">
-                    <li>上海</li>
-                    <li>北京</li>
-                    <li>上海</li>
-                    <li>北京</li>
-                    <li>上海</li>
-                    <li>北京</li>
-                    <li>上海</li>
-                    <li>北京</li>
+                    <li v-for="item in hotListInfo" :key="item.id">{{item.nm}}</li>
                 </ul>
             </div>
             <div class="city_sort">
-                <div  v-for="item in cityListInfo">
+                <div  v-for="item in cityListInfo" :key="item.id">
                     <h2>{{ item.index }}</h2>
                     <ul>
                         <li>阿拉善盟</li>
@@ -45,7 +38,8 @@ export default {
     props: {},
     data() {
         return {
-            cityListInfo:[]
+            cityListInfo:[],
+            hotListInfo:[]
         };
     },
     mounted() {
@@ -53,8 +47,9 @@ export default {
             var msg = res.data.msg;
             if(msg === 'ok'){
                 var cities = res.data.data.cities;
-                console.log(cities)
-                this.cityListInfo = this.formCityList(cities);
+                let { cityList, hotList } = this.formCityList(cities);
+                this.cityListInfo = cityList;
+                this.hotListInfo = hotList;
             }
         })
     },
@@ -62,6 +57,11 @@ export default {
         formCityList(cities){
             var cityList = [];
             var hotList = [];
+            for(var i=0;i<cities.length-1;i++){
+                if(cities[i].isHot === 1){
+                    hotList.push(cities[i]);
+                }
+            }
             for(var i=0;i<cities.length-1;i++){
                 var firstLetter = cities[i].py.substr(0,1).toUpperCase();
                 if(toCom(firstLetter)){   //新增加城市
@@ -92,7 +92,11 @@ export default {
                 }
                 return true;
             }
-            console.log(cityList)
+            return {
+                cityList,
+                hotList
+            }
+            // console.log(cityList)
         }
     }
 }
