@@ -38,6 +38,7 @@
 		mounted() {
 			this.axios.get('/api/cityList').then((res) => {
 				var msg = res.data.msg;
+				console.log(res.data)
 				if (msg === 'ok') {
 					var cities = res.data.data.cities;
 					var {
@@ -54,14 +55,14 @@
 			formCityList(cities) {
 				var cityList = [];
 				var hotList = [];
-				for (var i = 0; i < cities.length; i++) {
+				for (var i = 0; i < cities.length; i++) {   //热门城市列表
 					if (cities[i].isHot === 1) {
 						hotList.push(cities[i]);
 					}
 				}
 				for (var i = 0; i < cities.length; i++) {
 					var firstLetter = cities[i].py.substr(0, 1).toUpperCase();
-					if (toCom(firstLetter)) { //新增加城市
+					if (toCom(firstLetter)) { //判断后存在新的字母，不存在就添加新的字母的并添加该城市到该新加的字母列表里去
 						cityList.push({
 							index: firstLetter,
 							list: [{
@@ -70,7 +71,7 @@
 							}]
 						});
 					} else {
-						for (var j = 0; j < cityList.length; j++) {
+						for (var j = 0; j < cityList.length; j++) {  //判断后不存在新的字母，就把城市添加到已有的字母的列表里去
 							if (cityList[j].index === firstLetter) {
 								cityList[j].list.push({
 									nm: cities[i].nm,

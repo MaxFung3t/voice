@@ -1,23 +1,29 @@
 <template>
     <header id="header">
-			<h1>喵喵影院</h1>
+			<h1>{{ content }}</h1>
 		</header>
 </template>
 
 <script>
+import bus from '@/event/EventBus'
 export default {
   name: 'Header',
   components: {},
   props: {},
   data() {
     return {
+      content:''
     };
   },
   watch: {},
   computed: {},
   methods: {},
   created() {},
-  mounted() {}
+  mounted() {
+    bus.$on('busClick',(val)=>{
+      this.content = val.valTwo
+    })
+  }
 };
 </script>
 <style scoped>
