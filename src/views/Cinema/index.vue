@@ -3,7 +3,8 @@
       <Header />
       <div id="content">
         <div class="cinema_menu">
-          <div class="city_switch">
+          
+          <!-- <div class="city_switch">
             全城 <i class="iconfont icon-lower-triangle"></i>
           </div>
           <div class="brand_swtich">
@@ -11,9 +12,10 @@
           </div>
           <div class="feature_switch">
             特色 <i class="iconfont icon-lower-triangle"></i>
-          </div>
+          </div> -->
         </div>
-        <CiList />
+        <div>{{ arrList }}</div>
+        <!-- <CiList />  -->
       </div>
       
       <TabBar />
@@ -22,12 +24,22 @@
 
 
 <script>
+import {mapState,mapGetters,mapActions} from 'vuex';
 import Header from '@/components/Header';
 import TabBar from '@/components/TabBar';
 import CiList from '@/components/CiList';
 
 export default {
   name: 'Cinema',
+   computed:{
+        // ...mapState({  //用mapState来获取changeNum.js里面的state的属性值
+        //    arrList:state=>state.changeNum.changeNum
+        // }),
+        ...mapGetters('changeNum',{ //用mapGetters来获取changeNum.js里面的getters
+            arrList:'changeClick'
+        })
+
+    },
   components: {
       Header,
       TabBar,
