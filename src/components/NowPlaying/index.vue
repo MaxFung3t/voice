@@ -35,7 +35,6 @@ export default {
 		if(msg === 'ok'){
 			let movieList = res.data.data.movieList;
 			this.movieListInfo = movieList;
-			console.log(this.movieListInfo)
 		}
 	  })
   },

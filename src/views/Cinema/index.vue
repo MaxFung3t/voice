@@ -2,8 +2,8 @@
 	<div id="main">
 		<Header />
 		<div id="content">
+			<div class="vuexTest">vueX测试:{{ arrList }}</div>
 			<div class="cinema_menu">
-				<div class="vuexTest">vueX测试:{{ arrList }}</div>
 				<div class="city_switch">
 					全城
 					<i class="iconfont icon-lower-triangle"></i>
@@ -50,7 +50,15 @@ export default {
 };
 </script>
 <style>
-#content #content .cinema_menu {
+#content	.vuexTest{
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	background-color: #007AFF;
+	color: #000;
+}
+#content .cinema_menu {
 	width: 100%;
 	height: 45px;
 	border-bottom: 1px solid #e6e6e6;
@@ -59,4 +67,5 @@ export default {
 	align-items: center;
 	background: white;
 }
+
 </style>

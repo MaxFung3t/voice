@@ -35,7 +35,6 @@ export default {
 			var msg = res.data.msg;
 			if(msg === "ok"){
 				let comingList = res.data.data.comingList;
-				console.log(comingList)
 				this.comingListInfo = comingList;
 			}
 		})

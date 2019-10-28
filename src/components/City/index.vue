@@ -38,7 +38,6 @@
 		mounted() {
 			this.axios.get('/api/cityList').then((res) => {
 				var msg = res.data.msg;
-				console.log(res.data)
 				if (msg === 'ok') {
 					var cities = res.data.data.cities;
 					var {
@@ -107,7 +106,6 @@
 				// console.log(cityList)
 			},
 			handleToIndex(index) {
-				console.log(index)
 				let h2 = this.$refs.city_sort.getElementsByTagName("h2");
 				this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
 			}

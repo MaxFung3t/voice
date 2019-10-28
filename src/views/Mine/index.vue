@@ -3,12 +3,11 @@
 		<Header />
 		<div id="content">
 			<!-- <Login /> -->
-
 			<div class="vuexTest" @click="addFunc(changableNum)">VueX</div>
 			<div>原始：{{ changeNum }}</div>
 			<div>其他写法:{{ userame }}</div>
 			<!-- <div style="color:red" v-title:abc.a="name"></div> -->
-			<div class="directiveTest" v-if="show" v-test></div>
+			<div class="directiveTest" v-if="show"></div>
 			<button @click ="show = !show ">directiveTest</button>
 		</div>
 		<TabBar />
@@ -32,9 +31,6 @@ export default {
 		};
 	},
 	mounted() {
-		bus.$on('busClick', val => {
-			this.content = val.content;
-		});
 	},
 	methods: {
 		// aa(){
