@@ -5,11 +5,13 @@ import store from './stores'
 import axios from 'axios'
 import './directive'
 
+
 Vue.config.productionTip = false
 Vue.prototype.axios = axios;
 Vue.filter('setWH',function(url,arg){
 		return url.replace(/w\.h/,arg);
 })
+
 
 new Vue({
   router,

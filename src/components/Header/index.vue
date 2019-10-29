@@ -16,25 +16,23 @@ export default {
 		};
 	},
 	watch: {
-		$route(newVal,oldVal){
-			console.log(oldVal)
+		$route(newVal, oldVal) {
+			console.log(oldVal);
 		}
 	},
-	computed: {
-		
-	},
+	computed: {},
 	methods: {},
 	created() {},
 	mounted() {
-		console.log('222222'+this.$route.path)
-		switch(this.$route.path){
-			case '/movie/nowPlaying':
-				this.name = 'dianying';
-			case '/cinema':
-				this.name = 'yingyuan'
-			case '/mine':
-			this.name = 'wode'
-		}
+		// console.log('222222'+this.$route.path)
+		// switch(this.$route.path){
+		// 	case '/movie/nowPlaying':
+		// 		this.name = 'dianying';
+		// 	case '/cinema':
+		// 		this.name = 'yingyuan'
+		// 	case '/mine':
+		// 	this.name = 'wode'
+		// }
 		// console.log(this.$route)
 		// bus.$off('busClick');
 		// bus.$on('busClick', val => {
@@ -54,7 +52,6 @@ export default {
 	color: #fff;
 	background: #e54847;
 	border-bottom: 1px solid #e54847;
-	position: relative;
 }
 #header h1 {
 	font-size: 18px;
