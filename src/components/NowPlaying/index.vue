@@ -1,7 +1,9 @@
 <template>
 	<div class="movie_body" ref="movie_body">
-		<!-- <Scroller> -->
+		<Loading v-if="isLoading"/>
+		<Scroller v-else :handleToScroll="handleToScroll" :handleTouchEnd="handleTouchEnd">
 			<ul>
+				<li class="pullDownMsg">{{ pullMsg }}</li>
 				<li v-for="item in movieListInfo" :key="item.id">
 					<div class="pic_show" @tap="handerToDetail"><img :src="item.img | setWH('128.180')" /></div>
 					<div class="info_list">
@@ -19,44 +21,89 @@
 					<div class="btn_mall">购票</div>
 				</li>
 			</ul>
-		<!-- </Scroller> -->
+		</Scroller>
 	</div>
 </template>
 
 <script>
-	import Bscroll from 'better-scroll';
+
 export default {
 	name: 'NowPlaying',
-	components: {},
+	components: {
+		
+	},
 	props: {},
 	data() {
 		return {
-			movieListInfo: []
+			movieListInfo: [],
+			pullMsg: '',
+			isLoading: true
 		};
 	},
 	watch: {},
 	computed: {},
 	mounted() {
-		this.axios.get('/api/movieOnInfoList').then(res => {
+		this.axios.get('/api/movieOnInfoList?cityId=10').then(res => {
 			var msg = res.data.msg;
 			if (msg === 'ok') {
 				let movieList = res.data.data.movieList;
 				this.movieListInfo = movieList;
-				this.$nextTick(()=>{
-					var scroll = new Bscroll(this.$refs.movie_body,{
-						tap: true,
-						probeType: 1
-					})
-					scroll.on('scroll',()=>{
-						console.log('scroll')
-					})
-				})
+				this.isLoading = false;
+				// this.$nextTick(() => {
+				// 	var scroll = new Bscroll(this.$refs.movie_body, {
+				// 		tap: true,
+				// 		probeType: 1
+				// 	});
+				// 	scroll.on('scroll', (pos) => {
+				// 		// console.log('scroll')
+				// 		if (pos.y > 30) {
+				// 			this.pullMsg = '正在更新中~~';
+				// 		}
+				// 	});
+				// 	scroll.on('touchEnd', (pos) => {
+				// 		if (pos.y > 30) {
+				// 			this.axios.get('/api/movieOnInfoList?cityId=11').then(res => {
+				// 				var msg = res.data.msg;
+				// 				if (msg === 'ok') {
+				// 					this.pullMsg = '更新成功~~';
+				// 					let movieList = res.data.data.movieList;
+				// 					setTimeout(() => {
+				// 						this.movieListInfo = movieList;
+				// 						this.pullMsg = '';
+				// 					}, 1000);
+
+				// 				}
+				// 			});
+				// 		}
+				// 	});
+				// });
 			}
 		});
 	},
 	methods: {
-		handerToDetail(){
-			console.log('handerToDetail')
+		handerToDetail() {
+			console.log('handerToDetail');
+		},
+		handleToScroll(pos) {
+			if (pos.y > 30) {
+				this.pullMsg = '正在更新中~~';
+			}
+		},
+		handleTouchEnd(pos) {
+			if (pos.y > 30) {
+				this.axios.get('/api/movieOnInfoList?cityId=11').then(res => {
+					console.log('jiazai')
+					var msg = res.data.msg;
+					if (msg === 'ok') {
+						this.pullMsg = '更新成功~~';
+						let movieList = res.data.data.movieList;
+						setTimeout(() => {
+							this.movieListInfo = movieList;
+							this.pullMsg = '';
+						}, 1000);
+					}
+				});
+			}
 		}
 	}
 };
@@ -131,5 +178,13 @@ export default {
 }
 .movie_body .btn_pre {
 	background-color: #3c9fe6;
+}
+.movie_body .pullDownMsg {
+	margin: 0;
+	padding: 0;
+	border: none;
+	text-align: center;
+	font-size: 12px;
+	color: #8b0000;
 }
 </style>

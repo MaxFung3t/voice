@@ -1,5 +1,7 @@
 <template>
 	<div class="cinema_body">
+		<Loading v-if="isLoading"/>
+		<Scroller v-else>
 		<ul>
 			<li v-for="item in cinemasListInfo" :key="item.id">
 				<div>
@@ -92,11 +94,23 @@
                 </div>
             </li> -->
 		</ul>
+		</Scroller>
 	</div>
 </template>
 
 <script>
 export default {
+	name: 'CiList',
+	components: {},
+	props: {},
+	data() {
+		return {
+			cinemasListInfo: [],
+			isLoading:true
+		};
+	},
+	watch: {},
+	computed: {},
 	methods: {
 		isNoZero(val) {
 			Object.keys(val).forEach(tag => {
@@ -115,6 +129,7 @@ export default {
 			if (msg == 'ok') {
 				var cinemas = res.data.data.cinemas;
 				this.cinemasListInfo = cinemas;
+				this.isLoading = false;
 				console.log(cinemas);
 			}
 		});
@@ -153,17 +168,7 @@ export default {
 			
 			return '';
 		}
-	},
-	name: 'CiList',
-	components: {},
-	props: {},
-	data() {
-		return {
-			cinemasListInfo: []
-		};
-	},
-	watch: {},
-	computed: {},
+	}
 };
 </script>
 <style scoped>
