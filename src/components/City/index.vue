@@ -1,20 +1,20 @@
 <template>
 	<div class="city_body">
 		<div class="city_list">
-			<Loading v-if="isLoading"/>
+			<Loading v-if="isLoading" />
 			<Scroller v-else ref="city_list">
 				<div>
 					<div class="city_hot" ref="city_hot">
 						<h2>热门城市</h2>
 						<ul class="clearfix">
-							<li v-for="item in hotListInfo" :key="item.id">{{ item.nm }}</li>
+							<li v-for="item in hotListInfo" :key="item.id" @touchstart="handleToCity(item.nm,item.id)">{{ item.nm }}</li>
 						</ul>
 					</div>
 					<div class="city_sort" ref="city_sort">
 						<div v-for="item in cityListInfo" :key="item.index">
 							<h2>{{ item.index }}</h2>
 							<ul>
-								<li v-for="itemList in item.list" :key="itemList.id">{{ itemList.nm }}</li>
+								<li v-for="itemList in item.list" :key="itemList.id" @touchstart="handleToCity(itemList.nm,itemList.id)">{{ itemList.nm }}</li>
 							</ul>
 						</div>
 					</div>
@@ -40,22 +40,31 @@ export default {
 		return {
 			cityListInfo: [],
 			hotListInfo: [],
-			isLoading:true
+			isLoading: true
 		};
 	},
 	mounted() {
-		this.axios.get('/api/cityList').then(res => {
-			var msg = res.data.msg;
-			if (msg === 'ok') {
-				this.isLoading = false;
-				var cities = res.data.data.cities;
-				var { cityList, hotList } = this.formCityList(cities);
-				console.log(this.formCityList(cities));
-				this.cityListInfo = cityList;
-				this.hotListInfo = hotList;
-				
-			}
-		});
+		var cityList = window.localStorage.getItem('cityList');
+		var hostList = window.localStorage.getItem('hostList');
+		if (cityList && hostList) {
+			this.cityListInfo = JSON.parse(cityList);
+			this.hotListInfo = JSON.parse(hotList);
+			this.isLoading = false;
+		} else {
+			this.axios.get('/api/cityList').then(res => {
+				var msg = res.data.msg;
+				if (msg === 'ok') {
+					this.isLoading = false;
+					var cities = res.data.data.cities;
+					var { cityList, hotList } = this.formCityList(cities);
+					console.log(this.formCityList(cities));
+					this.cityListInfo = cityList;
+					this.hotListInfo = hotList;
+					window.localStorage.setItem('cityList', JSON.stringify(cityList));
+					window.localStorage.setItem('hotList', JSON.stringify(hotList));
+				}
+			});
+		}
 	},
 	methods: {
 		formCityList(cities) {
@@ -123,10 +132,13 @@ export default {
 			this.$refs.city_list.toScrollTop(-h2[index].offsetTop);
 		},
 		handeleToHotIndex() {
-			console.log('11111')
+			console.log('11111');
 			let h2 = this.$refs.city_hot.getElementsByTagName('h2');
 			// this.$refs.city_hot.parentNode.scrollTop = h2.offsetTop;
 			this.$refs.city_list.toScrollTop(0);
+		},
+		handleToCity(nm,id){
+			this.$store.commit('city/CITY_INFO',{nm:nm,id:id})
 		}
 	}
 };
