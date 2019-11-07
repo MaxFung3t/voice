@@ -1,6 +1,6 @@
 const state = {
-	nm: '北京',
-	id: 1
+	nm: window.localStorage.getItem('cityNm') || '北京',
+	id: window.localStorage.getItem('cityId') || 1
 }
 const getters = {
 	

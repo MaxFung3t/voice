@@ -7,14 +7,14 @@
 					<div class="city_hot" ref="city_hot">
 						<h2>热门城市</h2>
 						<ul class="clearfix">
-							<li v-for="item in hotListInfo" :key="item.id" @touchstart="handleToCity(item.nm,item.id)">{{ item.nm }}</li>
+							<li v-for="item in hotListInfo" :key="item.id" @tap="handleToCity(item.nm,item.id)">{{ item.nm }}</li>
 						</ul>
 					</div>
 					<div class="city_sort" ref="city_sort">
 						<div v-for="item in cityListInfo" :key="item.index">
 							<h2>{{ item.index }}</h2>
 							<ul>
-								<li v-for="itemList in item.list" :key="itemList.id" @touchstart="handleToCity(itemList.nm,itemList.id)">{{ itemList.nm }}</li>
+								<li v-for="itemList in item.list" :key="itemList.id" @tap="handleToCity(itemList.nm,itemList.id)">{{ itemList.nm }}</li>
 							</ul>
 						</div>
 					</div>
@@ -138,7 +138,10 @@ export default {
 			this.$refs.city_list.toScrollTop(0);
 		},
 		handleToCity(nm,id){
-			this.$store.commit('city/CITY_INFO',{nm:nm,id:id})
+			this.$store.commit('city/CITY_INFO',{nm:nm,id:id});
+			window.localStorage.setItem('cityNm',nm);
+			window.localStorage.setItem('cityId',id);
+			this.$router.push('/movie/nowPlaying')
 		}
 	}
 };
