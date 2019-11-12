@@ -34,19 +34,24 @@ export default {
 		return {
 			comingListInfo: [],
 			pullMsg:'',
-			isLoading:true
+			isLoading:true,
+			prevCityId: -1
 		};
 	},
 	watch: {},
 	computed: {},
 	created() {},
-	mounted() {
-		this.axios.get('/api/movieComingList?cityId=10').then(res => {
+	activated() {
+		var cityId = this.$store.state.city.id;
+		if(this.prevCityId === cityId){ return };
+		this.isLoading = true;
+		this.axios.get('/api/movieComingList?cityId='+ cityId).then(res => {
 			var msg = res.data.msg;
 			if (msg === 'ok') {
 				let comingList = res.data.data.comingList;
 				this.comingListInfo = comingList;
 				this.isLoading = false;
+				this.prevCityId = cityId;
 			}
 		});
 	}

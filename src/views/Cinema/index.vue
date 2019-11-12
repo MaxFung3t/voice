@@ -49,7 +49,7 @@ export default {
 	}
 };
 </script>
-<style>
+<style scoped>
 #content	.vuexTest{
 	width: 100%;
 	height: 45px;
