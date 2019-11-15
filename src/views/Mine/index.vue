@@ -21,6 +21,7 @@ import Login from '@/components/Login';
 import bus from '@/event/EventBus';
 import { mapState, mapGetters, mapActions } from 'vuex'; //先要引入
 import  myMixin  from '@/mixins/myMixin';
+
 export default {
 	name: 'Mine',
 	data() {
@@ -36,7 +37,7 @@ export default {
 	mounted() {
 		const a = this.deepCopy(this.arr);
 		console.log(a);
-		this.aa();
+		
 	},
 	methods: {
 		// aa(){
@@ -48,10 +49,7 @@ export default {
 		...mapActions('changeNum', [
 			//changeNum是指modules文件夹下的changeNum.js
 			'addFunc' //changeNum.js文件中的actions里的方法，在上面的@click中执行并传入实参
-		]),
-		aa(){
-			console.log('111')
-		}
+		])
 	},
 	computed: {
 		userame: function() {
