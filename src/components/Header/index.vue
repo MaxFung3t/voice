@@ -1,6 +1,7 @@
 <template>
 	<header id="header">
-		<h1>{{ name }}</h1>
+		<slot></slot>
+		<h1>{{ title }}</h1>
 	</header>
 </template>
 
@@ -9,7 +10,12 @@ import bus from '@/event/EventBus';
 export default {
 	name: 'Header',
 	components: {},
-	props: {},
+	props: {
+		title:{
+			type: String,
+			default:'电影'
+		}
+	},
 	data() {
 		return {
 			name: ''

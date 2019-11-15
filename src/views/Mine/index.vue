@@ -1,6 +1,6 @@
 <template>
 	<div id="main">
-		<Header />
+		<Header title="个人中心"/>
 		<div id="content">
 			<!-- <Login /> -->
 			<div class="vuexTest" @click="addFunc(changableNum)">VueX</div>

@@ -1,6 +1,6 @@
 <template>
 	<div id="main">
-		<Header />
+		<Header title="电影首页" />
 		<div id="content">
 			<div class="movie_menu">
 				<router-link tag="div" to="/movie/city" class="city_name">
@@ -16,6 +16,7 @@
 			<keep-alive><router-view /></keep-alive>
 		</div>
 		<TabBar />
+		<router-view name="detail" />
 	</div>
 </template>
 

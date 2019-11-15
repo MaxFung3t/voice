@@ -1,31 +1,37 @@
-export default{
-    path: '/movie',
+export default {
+	path: '/movie',
 	name: '/movie',
-    component: () => import('@/views/Movie'),
-    children : [
-        {
-            path: 'city',
+	component: () => import('@/views/Movie'),
+	children: [{
+			path: 'city',
 			name: 'city',
-            component : () => import('@/components/City')
-        },
-        {
-            path: 'nowPlaying',
+			component: () => import('@/components/City')
+		},
+		{
+			path: 'nowPlaying',
 			name: 'nowPlaying',
-            component : () => import('@/components/NowPlaying')
-        },
-        {
-            path: 'comingSoon',
+			component: () => import('@/components/NowPlaying')
+		},
+		{
+			path: 'comingSoon',
 			name: 'comingSoon',
-            component : () => import('@/components/ComingSoon')
-        },
-        {
-            path: 'search',
+			component: () => import('@/components/ComingSoon')
+		},
+		{
+			path: 'search',
 			name: 'search',
-            component : () => import('@/components/Search')
-        },
-        {
-            path : '/movie',
-            redirect : '/movie/nowPlaying'
-        }
-    ]
+			component: () => import('@/components/Search')
+		},
+		{
+			path: 'detail',
+			name: 'detail',
+			components: {
+				detail :() => import('@/views/Movie/detail')
+			}
+		},
+		{
+			path: '/movie',
+			redirect: '/movie/nowPlaying'
+		}
+	]
 }

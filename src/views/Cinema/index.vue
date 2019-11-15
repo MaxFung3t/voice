@@ -1,6 +1,6 @@
 <template>
 	<div id="main">
-		<Header />
+		<Header title="影院详情"/>
 		<div id="content">
 			<div class="vuexTest">vueX测试:{{ arrList }}</div>
 			<div class="cinema_menu">
