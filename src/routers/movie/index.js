@@ -23,10 +23,13 @@ export default {
 			component: () => import('@/components/Search')
 		},
 		{
-			path: 'detail',
+			path: 'detail/:movieId',
 			name: 'detail',
 			components: {
-				detail :() => import('@/views/Movie/detail')
+				detail: () => import('@/views/Movie/detail')
+			},
+			props : {
+				detail : true
 			}
 		},
 		{
