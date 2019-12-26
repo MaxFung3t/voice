@@ -1,5 +1,5 @@
 <template>
-	<div id="detailContrainer">
+	<div id="detailContrainer"  class="slide-enter-active">
 		<Header title="影片详情"><i class="iconfont icon-right" @touchstart="handleToBack"></i></Header>
 		<div id="content" class="contentDetail">
 			<div class="detail_list">
@@ -81,6 +81,7 @@ export default {
 	components: {
 		Header
 	},
+	props:['movieId'],
 	methods: {
 		handleToBack() {
 			this.$router.back();

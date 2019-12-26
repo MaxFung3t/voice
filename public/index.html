@@ -8,12 +8,22 @@
     <link rel="stylesheet" href="<%= BASE_URL %>css/common.css">
     <link rel="stylesheet" href="<%= BASE_URL %>css/iconfont/iconfont.css">
     <title>voice</title>
+	
   </head>
   <body>
     <noscript>
       <strong>We're sorry but voice doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+	<style type="text/css">
+		#app{display: flex; height: 100%;}
+		#app div{ margin: auto;}
+    [v-cloak]{
+      display: none;
+    }
+	</style>
+    <div id="app" v-cloak>
+		<div>喵喵网正在加载中...</div>
+	</div>
     <!-- built files will be auto injected -->
   </body>
 </html>

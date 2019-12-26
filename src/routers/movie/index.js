@@ -23,9 +23,21 @@ export default {
 			component: () => import('@/components/Search')
 		},
 		{
-			path: 'detail/:movieId',
+			path: 'detail/1/:movieId',
 			name: 'detail',
 			components: {
+				default: ()=> import('@/components/NowPlaying'),
+				detail: () => import('@/views/Movie/detail')
+			},
+			props : {
+				detail : true
+			}
+		},
+		{
+			path: 'detail/2/:movieId',
+			name: 'detail',
+			components: {
+				default: ()=> import('@/components/ComingSoon'),
 				detail: () => import('@/views/Movie/detail')
 			},
 			props : {

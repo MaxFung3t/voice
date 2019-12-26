@@ -5,9 +5,9 @@
 			<ul>
 				<li class="pullDownMsg">{{ pullMsg }}</li>
 				<li v-for="item in comingListInfo" :key="item.id">
-					<div class="pic_show"><img :src="item.img | setWH('120.180')" /></div>
+					<div class="pic_show" @tap="handerToDetail(item.id)"><img :src="item.img | setWH('120.180')" /></div>
 					<div class="info_list">
-						<h2>
+						<h2 @tap="handerToDetail(item.id)">
 							{{ item.nm }}
 							<img v-if="item.version" src="@/assets/maxs.png" alt="3D" />
 						</h2>
@@ -29,7 +29,7 @@
 export default {
 	name: 'ComingSoon',
 	components: {},
-	props: {},
+	props: ['movieId'],
 	data() {
 		return {
 			comingListInfo: [],
@@ -54,6 +54,11 @@ export default {
 				this.prevCityId = cityId;
 			}
 		});
+	},
+	methods:{
+		handerToDetail(movieId) {
+			this.$router.push('/movie/detail/2/' + movieId);
+		},
 	}
 };
 </script>
